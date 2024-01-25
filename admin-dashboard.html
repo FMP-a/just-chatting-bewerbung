@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin Dashboard</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f4f4f4;
+        }
+
+        header {
+            background-color: #333;
+            color: #fff;
+            padding: 20px;
+            text-align: center;
+        }
+
+        section {
+            max-width: 800px;
+            margin: 20px auto;
+            background-color: #fff;
+            padding: 30px;
+            border-radius: 10px;
+            box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
+        }
+
+        form {
+            max-width: 400px;
+            margin: 0 auto;
+            background-color: #fff;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
+        }
+
+        label {
+            font-weight: bold;
+        }
+
+        input {
+            width: 100%;
+            padding: 10px;
+            box-sizing: border-box;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+        }
+
+        button {
+            background-color: #333;
+            color: #fff;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+
+        #applications {
+            margin-top: 20px;
+        }
+
+        footer {
+            background-color: #333;
+            color: #fff;
+            text-align: center;
+            padding: 10px;
+            position: fixed;
+            bottom: 0;
+            width: 100%;
+        }
+    </style>
+</head>
+<body>
+
+<header>
+    <h1>Admin Dashboard</h1>
+</header>
+
+<section id="admin-login">
+    <h2>Login</h2>
+    <form id="loginForm">
+        <label for="username">Benutzername:</label>
+        <input type="text" id="username" name="username" required>
+
+        <label for="password">Passwort:</label>
+        <input type="password" id="password" name="password" required>
+
+        <button type="button" onclick="login()">Einloggen</button>
+    </form>
+</section>
+
+<section id="applications" style="display:none;">
+    <h2>Bewerbungen</h2>
+    <ul id="applicationList"></ul>
+</section>
+
+<script>
+    function login() {
+        const usernameInput = document.getElementById('username').value;
+        const passwordInput = document.getElementById('password').value;
+
+        // Hier könntest du eine echte Authentifizierung implementieren,
+        // z.B., indem du die eingegebenen Benutzerdaten mit gespeicherten
+        // Benutzerdaten auf dem Server vergleichst.
+
+        // Beispiel: Testbenutzer
+        const testUser = { username: 'admin', password: 'admin123' };
+
+        if (usernameInput === testUser.username && passwordInput === testUser.password) {
+            // Simuliere, dass der Benutzer eingeloggt ist
+            document.getElementById('admin-login').style.display = 'none';
+            document.getElementById('applications').style.display = 'block';
+
+            // Lade Bewerbungen aus dem lokalen Speicher
+            loadApplications();
+        } else {
+            alert('Falscher Benutzername oder Passwort');
+        }
+    }
+
+    function loadApplications() {
+        const applicationList = document.getElementById('applicationList');
+        applicationList.innerHTML = '';
+
+        // Simulierte Bewerbungen im lokalen Speicher
+        const applications = JSON.parse(localStorage.getItem('applications')) || [];
+
+        applications.forEach(application => {
+            const listItem = document.createElement('li');
+            listItem.textContent = `Bewerbung für ${application.job} von ${application.name} (${application.email})`;
+            applicationList.appendChild(listItem);
+        });
+    }
+</script>
+
+<footer>
+    <p>&copy; 2024 Just Chatting</p>
+</footer>
+
+</body>
+</html>
