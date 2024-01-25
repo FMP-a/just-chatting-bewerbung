@@ -1,0 +1,173 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Bewerbungswebsite</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f4f4f4;
+        }
+
+        header {
+            background-color: #333;
+            color: #fff;
+            padding: 20px;
+            text-align: center;
+        }
+
+        nav {
+            background-color: #eee;
+            padding: 10px;
+            text-align: center;
+        }
+
+        section {
+            max-width: 800px;
+            margin: 20px auto;
+            background-color: #fff;
+            padding: 30px;
+            border-radius: 10px;
+            box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
+        }
+
+        form {
+            display: grid;
+            gap: 20px;
+        }
+
+        label {
+            font-weight: bold;
+        }
+
+        input, textarea {
+            width: 100%;
+            padding: 10px;
+            box-sizing: border-box;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+        }
+
+        button {
+            background-color: #333;
+            color: #fff;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+
+        footer {
+            background-color: #333;
+            color: #fff;
+            text-align: center;
+            padding: 1px;
+            position: fixed;
+            bottom: 0;
+            width: 100%;
+        }
+
+        /* Pop-up-Stil */
+        .popup {
+            display: none;
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            background-color: #fff;
+            padding: 20px;
+            border-radius: 5px;
+            box-shadow: 0 0 20px rgba(0, 0, 0, 0.3);
+            z-index: 999;
+        }
+
+        .overlay {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.5);
+            z-index: 998;
+        }
+    </style>
+</head>
+<body>
+
+<header>
+    <h1>Bewerbungswebsite</h1>
+</header>
+
+
+
+<section id="form">
+    <h2>Bewerbungsformular</h2>
+    <form id="applicationForm">
+        <label for="job">Bewerbung für:</label>
+        <select id="job" name="job" required>
+            <option value="designer">Designer</option>
+            <option value="sponsor">Sponsor</option>
+            <option value="zeichner">Zeichner</option>
+            <option value="entwickler">Entwickler</option>
+            <option value="marketing">Marketing</option>
+        </select>
+
+        <label for="name">Name:</label>
+        <input type="text" id="name" name="name" required>
+
+        <label for="email">E-Mail:</label>
+        <input type="email" id="email" name="email" required>
+
+        <label for="message">Bewerbungstext:</label>
+        <textarea id="message" name="message" rows="5" required></textarea>
+
+        <button type="button" onclick="submitApplication()">Bewerbung abschicken</button>
+    </form>
+</section>
+
+<!-- Pop-up für Bewerbung gesendet -->
+<div class="overlay" id="overlay"></div>
+<div class="popup" id="popup">
+    <p>Bewerbung gesendet!</p>
+    <button onclick="closePopup()">OK</button>
+</div>
+
+<script>
+    function submitApplication() {
+        const job = document.getElementById('job').value;
+        const name = document.getElementById('name').value;
+        const email = document.getElementById('email').value;
+        const message = document.getElementById('message').value;
+
+        const application = { job, name, email, message };
+
+        // Speichere Bewerbung im lokalen Speicher
+        const applications = JSON.parse(localStorage.getItem('applications')) || [];
+        applications.push(application);
+        localStorage.setItem('applications', JSON.stringify(applications));
+
+        // Zeige das Pop-up an
+        showPopup();
+    }
+
+    function showPopup() {
+        document.getElementById('overlay').style.display = 'block';
+        document.getElementById('popup').style.display = 'block';
+    }
+
+    function closePopup() {
+        document.getElementById('overlay').style.display = 'none';
+        document.getElementById('popup').style.display = 'none';
+    }
+</script>
+
+<footer>
+    <p>&copy; 2024 Just Chatting</p>
+</footer>
+
+</body>
+</html>
